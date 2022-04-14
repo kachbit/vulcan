@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <title>Monaco editor</title>
+      <link rel="stylesheet" data-name="vs/editor/editor.main" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/editor/editor.main.min.css">
+   </head>
+   <body>
+       
+      <button onclick="run()" id="run">▶</button>
+      <input id="clr" oninput="copyclip(this.value);" type='color'>
+      <div id="container" style="height:100vh;border:0px solid black;"></div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs/loader.min.js"></script>
+      <script>
+        function copyclip(text) {
+            var dummy = document.createElement("textarea");
+            // to avoid breaking orgain page when copying more words
+            // cant copy when adding below this code
+            // dummy.style.display = 'none'
+            document.body.appendChild(dummy);
+            //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        }
+
+         // require is provided by loader.min.js.
+         var edit;
+         require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.26.1/min/vs' }});
+         require(["vs/editor/editor.main"], () => {
+             // Remember to check out the CSS too!
+         var htmlCode =
+         	'<html>\n<head>\n	<!-- HTML comment -->\n	<style type="text/css">\n		/* CSS comment */\n	</style>\n	<script type="javascript">\n		// JavaScript comment\n	</' +
+         	'script>\n</head>\n<body>\n\n</body>\n</html>';
+         
+         edit = monaco.editor.create(document.getElementById('container'), {
+         	value: htmlCode,
+         	language: 'text/html',
+         	theme: 'vs-dark',
+         	scrollbar: {
+         		// Subtle shadows to the left & top. Defaults to true.
+         		useShadows: false,
+         
+         		// Render vertical arrows. Defaults to false.
+         		verticalHasArrows: true,
+         		// Render horizontal arrows. Defaults to false.
+         		horizontalHasArrows: true,
+         
+         		// Render vertical scrollbar.
+         		// Accepted values: 'auto', 'visible', 'hidden'.
+         		// Defaults to 'auto'
+         		vertical: 'visible',
+         		// Render horizontal scrollbar.
+         		// Accepted values: 'auto', 'visible', 'hidden'.
+         		// Defaults to 'auto'
+         		horizontal: 'visible',
+         
+         		verticalScrollbarSize: 17,
+         		horizontalScrollbarSize: 17,
+         		arrowSize: 30
+         	}
+         });
+         });
+         var text;
+         var win;
+         function run() {
+            text = edit.getValue();
+            if(win) {
+                win.close()
+            }
+            win = window.open("about:blank");
+            win.document.write(text);
+            win.stop()
+         }
+      </script>
+      <style>
+         /* Make horizontal scrollbar, decorations overview ruler and vertical scrollbar arrows opaque */
+         .monaco-editor .monaco-scrollable-element .scrollbar.horizontal,
+         .monaco-editor .decorationsOverviewRuler,
+         .monaco-editor .monaco-scrollable-element .scrollbar.vertical .arrow-background {
+         background: rgba(230, 230, 230, 255);
+         }
+         /* Make vertical scrollbar transparent to allow decorations overview ruler to be visible */
+         .monaco-editor .monaco-scrollable-element .scrollbar.vertical {
+         background: rgba(0, 0, 0, 0);
+         }
+         body {
+             margin:0px;
+             background:#1e1e1e;
+         }
+         #run,#clr {
+             background:transparent;
+             border:1px solid grey;
+             width:30px;
+             height:25px;
+             color:whitesmoke;
+             border-radius:3px;
+             cursor:pointer;
+             transition:all .2s ease-in-out;
+             opacity:0.6;
+             margin:0px;
+         }
+         #run:hover,#clr:hover {
+             transition:all .2s ease-in-out;
+             color:white;
+             opacity:1;
+             border-radius:5px;
+         }
+         #run {
+             margin-top:-10px;
+         }
+      </style>
+   </body>
+</html>
