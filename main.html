@@ -21,7 +21,7 @@
             "content": "New",
             "subMenu": {
               "project": {
-                "content": "tab",
+                "content": "tab {%createEditorTab('untitled')%}",
                }
             }
           },
@@ -59,13 +59,17 @@
         }
       }
     }
-
-    var menu = new Menu(tree, document.body);
-    document.body.onload = () => {
-             var editor = newTab('settings', `<iframe src=./index.html></iframe>`)
-
+    function createEditorTab(title) {
+             var editor = newTab(title, `<iframe src=./index.html></iframe>`)
+              
              editor.classList.add("editortab")
-            tabs.style.marginTop = "25px"
+            
+
+      }
+    var menu = new Menu(tree, document.body);
+    document.body.onload = () => {  
+      createEditorTab("untitled");
+      tabs.style.marginTop = "25px";
         }
         
         menu.style.zIndex = "999999999999999";
@@ -74,7 +78,7 @@
     <div class='boards'></div>
     <script src="https://kachbit.github.io/lib/filetreeui/tabsui/main.js"></script>
 <style>
-.materialBoard {
+.materialBoard:has(iframe) {
     padding:0px;
 }
 iframe {
