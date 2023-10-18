@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://kachbit.github.io/lib/menubarui/menu.css">
+    <script src="https://kachbit.github.io/lib/menubarui/menu.js"></script>
+
+    <link rel="stylesheet" href="https://kachbit.github.io/lib/filetreeui/tabsui/main.css">
+
+</head>
+<body>
+    <script>
+         var tree = {
+      "file": {
+        "content": "File",
+        "subMenu": {
+          "new_": {
+            "content": "New",
+            "subMenu": {
+              "project": {
+                "content": "tab",
+               }
+            }
+          },
+          "open": {
+            "content": "Open",
+            "subMenu": {
+              "project": {
+                "content": "file",
+               }
+            }
+          }
+        }
+      },
+      "Edit": {
+        "content": "Edit",
+        "subMenu": {
+          "undo": {
+            "content": "Undo",
+           },
+          "redo": {
+            "content": "Redo",
+           },
+          "cut": {
+            "content": "Cut {%cutThis%}",
+           },
+          "copy": {
+            "content": "Copy",
+           },
+          "paste": {
+            "content": "Paste",
+           },
+          "selectAll": {
+            "content": "Select All",
+           }
+        }
+      }
+    }
+
+    var menu = new Menu(tree, document.body);
+    document.body.onload = () => {
+             var editor = newTab('settings', `<iframe src=./index.html></iframe>`)
+
+             editor.classList.add("editortab")
+            tabs.style.marginTop = "25px"
+        }
+        
+        menu.style.zIndex = "999999999999999";
+    </script>
+    <div id="tabs"></div>
+    <div class='boards'></div>
+    <script src="https://kachbit.github.io/lib/filetreeui/tabsui/main.js"></script>
+<style>
+.materialBoard {
+    padding:0px;
+}
+iframe {
+    border: 2px solid #1e1e1e;
+    width:100%;
+    height:100%;
+}
+.tab.active.editortab {
+    background:#1e1e1e;
+}
+</style>
+</body>
+</html>
