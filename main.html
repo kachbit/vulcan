@@ -15,7 +15,7 @@
     <script>
          var tree = {
       "file": {
-        "content": "File",
+        "content": "File11",
         "subMenu": {
           "new_": {
             "content": "New",
@@ -73,6 +73,11 @@
         }
         
         menu.style.zIndex = "999999999999999";
+
+        function run1(text) {
+          alert("check 2")
+          newTab("webview", `<iframe srcdoc="${text}"></iframe>`)
+        }
     </script>
     <div id="tabs"></div>
     <div class='boards'></div>
