@@ -23,6 +23,9 @@
             "subMenu": {
               "project": {
                 "content": "tab {%createEditorTab('untitled')%}",
+               },
+               "vulcan project": {
+                "content": "vulcan project {%createVulcanTab('vulcan')%}",
                }
             }
           },
@@ -61,12 +64,19 @@
       }
     }
     function createEditorTab(title) {
-             var editor = newTab(title, "<h1>a</h1>")
-             getPanel(editor).innerHTML = `<div id="editbox"></div>`
-             newEditor(editbox,'html')
+             var editor = newTab(title, `<h1>${title}</h1>`)
+             var editbox_temp = document.createElement('div');
+             editbox_temp.id = "editbox";
+             getPanel(editor).appendChild(editbox_temp)
+             newEditor(editbox_temp,'html')
              editor.classList.add("editortab")
             
 
+      }
+
+      function createVulcanTab(title) {
+                     var editor = newTab(title, `<iframe src="https://kachbit.github.io/vulcan/"></iframe>`)
+             editor.classList.add("editortab")
       }
     var menu = new Menu(tree, document.body);
     document.body.onload = () => {  
